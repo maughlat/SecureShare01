@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { Mail, Lock, CircleUserRound, Users, ShieldCheck} from 'lucide-react';
+import { FaLock,  FaShieldAlt, FaUsers } from "react-icons/fa";
+import { IoShieldCheckmark } from "react-icons/io5";
 
 const Login = () => {
   const [action, setAction] = useState("Sign In");
@@ -17,18 +20,27 @@ const Login = () => {
             <ul className='flex flex-col sm:flex-row gap-4 lg:gap-10'>
               <li>
                 <div className='bg-white hover:bg-[#F9F0D9] px-6 py-5 text-sm rounded-lg border-solid border-2 border-black transition-colors cursor-default'>
+                   <div className="bg-[#EAC9C9] inline-flex items-center justify-center px-3 py-1 rounded-md mb-2 border ">
+                    <FaLock size={20} color="#7A1C1C" strokeWidth={2.5} />
+                  </div>
                   <span className='font-semibold block'>Encrypted</span>
                   <span className='text-xs block mt-1'>End-to-end encryption for all file transfers and storage</span>
                 </div>
               </li>
               <li>
                 <div className='bg-white hover:bg-[#F9F0D9] px-6 py-5 text-sm rounded-lg border-solid border-2 border-black transition-colors cursor-default'>
+                  <div className="bg-[#EAC9C9] inline-flex items-center justify-center px-3 py-1 rounded-md mb-2 border ">
+                    <FaUsers size={22} color="#7A1C1C" strokeWidth={2.5} />
+                  </div>
                   <span className='font-semibold block'>Role-Based</span>
                   <span className='text-xs block mt-1'>Separate access controls for students and teachers</span>
                 </div>
               </li>
               <li>
                 <div className='bg-white hover:bg-[#F9F0D9] px-6 py-5 text-sm rounded-lg border-solid border-2 border-black transition-colors cursor-default'>
+                  <div className="bg-[#EAC9C9] inline-flex items-center justify-center px-3 py-1 rounded-md mb-2 border">
+                    <IoShieldCheckmark size={20} color="#7A1C1C" strokeWidth={2.5} /> 
+                  </div>
                   <span className='font-semibold block'>Reliable</span>
                   <span className='text-xs block mt-1'>Secure database storage with backup and recovery</span>
                 </div>
@@ -39,8 +51,8 @@ const Login = () => {
           <div className='w-full max-w-[450px] rounded-lg bg-white text-center p-8 border-2 border-gray-200 ${
     action === "Register" ? "h-auto lg:h-[640px]" : "h-auto lg:h-[520px]"
   }`}'>
-            <div className='text-4xl bg-yellow-200 border-solid border-2 border-black inline-block rounded-full w-16 h-16 items-center justify-center font-bold text-[#7A1C1C] mb-2'>
-              .o.
+            <div className='flex items-center justify-center bg-yellow-100 rounded-full w-16 h-16 mb-2'>
+              <FaShieldAlt size={30} color="#7A1C1C" strokeWidth={2.5}/>
             </div>
             <h1 className='text-xl font-bold text-[#7A1C1C] mt-4 mb-2'>Welcome to SecureShare</h1>
             <p className='font-light text-sm mb-6'>
@@ -73,6 +85,7 @@ const Login = () => {
                         Full Name
                     </label>
                     <div className="text-sm flex items-center h-10 border border-gray-400 rounded-lg px-3 mb-4">
+                      <CircleUserRound size={20} color="#7A1C1C" className='mr-2' />
                         <input
                         type="text"
                         placeholder="John Doe"
@@ -86,6 +99,7 @@ const Login = () => {
                     Email
                 </label>
                 <div className="text-sm flex items-center h-10 border border-gray-400 rounded-lg px-3 mb-4">
+                  <Mail size={20} color="#7A1C1C" className="mr-2" />
                     <input
                     type="email"
                     placeholder="student@university.edu"
@@ -110,6 +124,7 @@ const Login = () => {
                     Password
                 </label>
                 <div className="text-sm flex items-center h-10 border border-gray-400 rounded-lg px-3 mb-6">
+                  <Lock size={20} color="#7A1C1C" className='mr-2'/>
                     <input
                     type="password"
                     placeholder="Enter your password"

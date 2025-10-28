@@ -7,22 +7,18 @@ import { PortalNavbar } from "./components/PortalNavbar";
 
 function App() {
   return (
-    
+    /*
     <>
       <PortalNavbar />
       <Portal />
-      
     </>
-    
-
-    
-    /*<>
+*/    
+    <>
       <Navbar />
       <Login />
       
     </>
-    */
+    
   );
 }
-
 export default App;
