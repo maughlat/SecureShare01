@@ -51,12 +51,17 @@ const Login = () => {
           <div className='w-full max-w-[450px] rounded-lg bg-white text-center p-8 border-2 border-gray-200 ${
     action === "Register" ? "h-auto lg:h-[640px]" : "h-auto lg:h-[520px]"
   }`}'>
-            <div className='flex items-center justify-center bg-yellow-100 rounded-full w-16 h-16 mb-2'>
-              <FaShieldAlt size={30} color="#7A1C1C" strokeWidth={2.5}/>
-            </div>
-            <h1 className='text-xl font-bold text-[#7A1C1C] mt-4 mb-2'>Welcome to SecureShare</h1>
-            <p className='font-light text-sm mb-6'>
-              {action === "Sign In" ? "Sign in to access your secure academic files" : "Create an account to start sharing files securely"}
+              <div className="flex flex-col items-center space-y-2 mb-6">
+                <div className="flex items-center justify-center bg-yellow-100 rounded-full w-16 h-16">
+                  <FaShieldAlt size={30} color="#7A1C1C" strokeWidth={2.5} />
+                </div>
+                <h1 className="text-xl font-bold text-[#7A1C1C]">Welcome to SecureShare</h1>
+              </div>
+
+            <p className="font-light text-sm mb-6">
+              {action === "Sign In"
+                ? "Sign in to access your secure academic files"
+                : "Create an account to start sharing files securely"}
             </p>
 
             <div className='flex mb-6 bg-black rounded-lg p-1'>
