@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaLock,  FaShieldAlt, FaUsers } from "react-icons/fa";
+import { ShieldCheck } from "lucide-react";
 
 export default function Navbar() {
   return (
     <nav className="flex justify-between items-center px-8 py-4 bg-[#7A1C1C]">
       <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-      <div className='flex items-center justify-center bg-yellow-100 rounded-full w-8 h-8 mb-2'>
-        <FaShieldAlt size={20} color="#7A1C1C" strokeWidth={2.5}/>
-      </div>
+      <div className='bg-gradient-to-br from-[#7A1C1C] to-[#9B2D2D] p-2.5 rounded-lg shadow-lg'>
+          <ShieldCheck className="text-white w-6 h-6" />
+        </div>
         <div className="text-white text-xl font-extrabold">SecureShare</div>
       </Link>
       

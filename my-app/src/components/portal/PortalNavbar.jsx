@@ -25,7 +25,7 @@ export const PortalNavbar = ({ onToggleSidebar }) => {
   return (
     <nav className="sticky top-0 z-50 h-16 flex justify-between items-center px-6 lg:px-12 bg-[#7A1C1C] text-white shadow-md">
       {/* Logo Section */}
-      <div className='flex items-center space-x-3'>
+      <div className='flex items-center space-x-3 -ml-6 lg:-ml-10'>
         <button onClick={onToggleSidebar} aria-label="Toggle sidebar" className="p-2 rounded-lg hover:bg-white/10 transition-colors">
           <Menu className="w-6 h-6" />
         </button>

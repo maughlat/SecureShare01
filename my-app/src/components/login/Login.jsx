@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, CircleUserRound } from 'lucide-react';
+import { Mail, Lock, CircleUserRound, ShieldCheck } from 'lucide-react';
 import { FaLock,  FaShieldAlt, FaUsers } from "react-icons/fa";
 import { IoShieldCheckmark } from "react-icons/io5";
 import Navbar from './Navbar';
@@ -79,9 +79,9 @@ const Login = () => {
 
           <div className={`w-full max-w-[450px] rounded-lg bg-white text-center p-8 border-2 border-gray-200 ${action === "Register" ? "h-auto lg:h-[600px]" : "h-auto lg:h-[520px]"}`}>
               <div className="flex flex-col items-center space-y-2 mb-6">
-                <div className="flex items-center justify-center bg-yellow-100 rounded-full w-16 h-16">
-                  <FaShieldAlt size={30} color="#7A1C1C" strokeWidth={2.5} />
-                </div>
+              <div className='bg-gradient-to-br from-[#7A1C1C] to-[#9B2D2D] p-2.5 rounded-lg shadow-lg'>
+                <ShieldCheck className="text-white w-8 h-8" />
+              </div>
                 <h1 className="text-xl font-bold text-[#7A1C1C]">Welcome to SecureShare</h1>
               </div>
 
