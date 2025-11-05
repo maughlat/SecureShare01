@@ -2,11 +2,17 @@
 import React, { useState } from 'react'
 // ADDED: Import FileUpload component
 import { FileUpload } from './FileUpload'
+import { CreateFolderModal } from './CreateFolderModal'
+import { ShareAccessModal } from './ShareAccessModal'
+import { SecuritySettingsModal } from './SecuritySettingsModal'
 import { Upload, FolderPlus, Share2, Settings, FileText, Clock, Download, Users, TrendingUp } from 'lucide-react'
 
 export const Portal = () => {
   // ADDED: State to control upload modal visibility
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [showCreateFolderModal, setShowCreateFolderModal] = useState(false);
+  const [showShareAccessModal, setShowShareAccessModal] = useState(false);
+  const [showSecuritySettingsModal, setShowSecuritySettingsModal] = useState(false);
 
   return (
     <header>
@@ -91,7 +97,7 @@ export const Portal = () => {
               </div>
               <p className='text-xs text-slate-500 ml-11'>.DOCX, .PDF, .PPTX, .JPG, .PNG</p>
             </li>
-            <li className='bg-gradient-to-br from-white to-slate-50 w-full px-6 py-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#7A1C1C] group'>
+            <li onClick={() => setShowCreateFolderModal(true)} className='bg-gradient-to-br from-white to-slate-50 w-full px-6 py-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#7A1C1C] group'>
               <div className='flex items-center gap-3 mb-3'>
                 <div className='p-2 bg-gradient-to-br from-[#7A1C1C] to-[#9B2D2D] rounded-lg shadow-md group-hover:shadow-lg transition-shadow'>
                   <FolderPlus className='w-5 h-5 text-white' />
@@ -100,7 +106,7 @@ export const Portal = () => {
               </div>
               <p className='text-xs text-slate-500 ml-11'>Organize your files</p>
             </li>
-            <li className='bg-gradient-to-br from-white to-slate-50 w-full px-6 py-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#7A1C1C] group'>
+            <li onClick={() => setShowShareAccessModal(true)} className='bg-gradient-to-br from-white to-slate-50 w-full px-6 py-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#7A1C1C] group'>
               <div className='flex items-center gap-3 mb-3'>
                 <div className='p-2 bg-gradient-to-br from-[#7A1C1C] to-[#9B2D2D] rounded-lg shadow-md group-hover:shadow-lg transition-shadow'>
                   <Share2 className='w-5 h-5 text-white' />
@@ -109,7 +115,7 @@ export const Portal = () => {
               </div>
               <p className='text-xs text-slate-500 ml-11'>Collaborate with others</p>
             </li>
-            <li className='bg-gradient-to-br from-white to-slate-50 w-full px-6 py-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#7A1C1C] group'>
+            <li onClick={() => setShowSecuritySettingsModal(true)} className='bg-gradient-to-br from-white to-slate-50 w-full px-6 py-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#7A1C1C] group'>
               <div className='flex items-center gap-3 mb-3'>
                 <div className='p-2 bg-gradient-to-br from-[#7A1C1C] to-[#9B2D2D] rounded-lg shadow-md group-hover:shadow-lg transition-shadow'>
                   <Settings className='w-5 h-5 text-white' />
@@ -260,6 +266,23 @@ export const Portal = () => {
       {showUploadModal && (
         <FileUpload onClose={() => setShowUploadModal(false)} />
       )}
+      {showCreateFolderModal && (
+        <CreateFolderModal onClose={() => setShowCreateFolderModal(false)} onCreate={() => {}} />
+      )}
+      {showShareAccessModal && (
+        <ShareAccessModal onClose={() => setShowShareAccessModal(false)} onShare={() => {}} />
+      )}
+      {showSecuritySettingsModal && (
+        <SecuritySettingsModal onClose={() => setShowSecuritySettingsModal(false)} onSave={() => {}} />
+      )}
   </header>
   )
 }
+
+
+
+
+
+
+
+
