@@ -35,49 +35,50 @@ const Login = () => {
   };
 
   return (
-    <div className='bg-[#F2F2F2] min-h-screen'>
+    <div className='bg-radial-at-center from-[#F9F0D9] to-[#F2F2F2] min-h-screen'>
       <Navbar />
-      <header className='container mx-auto'>
-        <section className='h-screen grid grid-cols-1 lg:grid-cols-2 justify-items-center items-center text-lg px-8 gap-8'>
-          <div className='max-w-2xl'>
-            <h1 className='text-4xl lg:text-6xl text-[#7A1C1C] font-black tracking-tight mb-10'>
+      <header className='mx-auto px-4 max-w-7xl'>
+        <section className='w-full min-h-[calc(100vh-120px)] flex items-start py-4'>
+          <div className='w-full min-h-full rounded-3xl bg-white/30 backdrop-blur-xl border border-white/20 shadow-2xl px-6 py-8 lg:px-12 lg:py-12 text-lg flex flex-col lg:flex-row items-start gap-12'>
+            <div className='w-full lg:max-w-2xl'>
+            <h1 className='text-4xl lg:text-7xl text-[#7A1C1C] font-black tracking-tight mb-5 '>
               Secure File Sharing for Academic Excellence
             </h1>
-            <p className='mb-8'>
-              A trusted platform for students and teachers to share assignments, lecture notes, and research documents with end-to-end encryption and role-based access control.
+            <p className='mb-10'>
+            A trusted platform for students and teachers to share assignments, lecture notes, and research documents with end-to-end encryption and role-based access control.
             </p>
             <ul className='flex flex-col sm:flex-row gap-4 lg:gap-10'>
               <li>
-                <div className='bg-white hover:bg-[#F9F0D9] px-6 py-5 text-sm rounded-lg border-solid border-2 border-black transition-colors cursor-default'>
-                   <div className="bg-[#EAC9C9] inline-flex items-center justify-center px-3 py-1 rounded-md mb-2 border ">
+                <div className='bg-white/30 backdrop-blur-xl border border-white/40 shadow-lg hover:bg-white/50 hover:-translate-y-1 hover:shadow-2xl px-6 py-5 text-sm rounded-2xl transition-all duration-300 cursor-pointer'>
+                   <div className="bg-white/60 inline-flex items-center justify-center px-3 py-1 rounded-md mb-3 border border-white/40">
                     <FaLock size={20} color="#7A1C1C" strokeWidth={2.5} />
                   </div>
-                  <span className='font-semibold block'>Encrypted</span>
-                  <span className='text-xs block mt-1'>End-to-end encryption for all file transfers and storage</span>
+                  <span className='font-semibold block text-[#4B1B1B]'>Encrypted</span>
+                  <span className='text-xs block mt-1 text-[#4B1B1B]/80'>End-to-end encryption for all file transfers and storage</span>
                 </div>
               </li>
               <li>
-                <div className='bg-white hover:bg-[#F9F0D9] px-6 py-5 text-sm rounded-lg border-solid border-2 border-black transition-colors cursor-default'>
-                  <div className="bg-[#EAC9C9] inline-flex items-center justify-center px-3 py-1 rounded-md mb-2 border ">
+                <div className='bg-white/30 backdrop-blur-xl border border-white/40 shadow-lg hover:bg-white/50 hover:-translate-y-1 hover:shadow-2xl px-6 py-5 text-sm rounded-2xl transition-all duration-300 cursor-pointer'>
+                  <div className="bg-white/60 inline-flex items-center justify-center px-3 py-1 rounded-md mb-3 border border-white/40">
                     <FaUsers size={22} color="#7A1C1C" strokeWidth={2.5} />
                   </div>
-                  <span className='font-semibold block'>Role-Based</span>
-                  <span className='text-xs block mt-1'>Separate access controls for students and teachers</span>
+                  <span className='font-semibold block text-[#4B1B1B]'>Role-Based</span>
+                  <span className='text-xs block mt-1 text-[#4B1B1B]/80'>Separate access controls for students and teachers</span>
                 </div>
               </li>
               <li>
-                <div className='bg-white hover:bg-[#F9F0D9] px-6 py-5 text-sm rounded-lg border-solid border-2 border-black transition-colors cursor-default'>
-                  <div className="bg-[#EAC9C9] inline-flex items-center justify-center px-3 py-1 rounded-md mb-2 border">
+                <div className='bg-white/30 backdrop-blur-xl border border-white/40 shadow-lg hover:bg-white/50 hover:-translate-y-1 hover:shadow-2xl px-6 py-5 text-sm rounded-2xl transition-all duration-300 cursor-pointer'>
+                  <div className="bg-white/60 inline-flex items-center justify-center px-3 py-1 rounded-md mb-3 border border-white/40">
                     <IoShieldCheckmark size={20} color="#7A1C1C" strokeWidth={2.5} /> 
                   </div>
-                  <span className='font-semibold block'>Reliable</span>
-                  <span className='text-xs block mt-1'>Secure database storage with backup and recovery</span>
+                  <span className='font-semibold block text-[#4B1B1B]'>Reliable</span>
+                  <span className='text-xs block mt-1 text-[#4B1B1B]/80'>Secure database storage with backup and recovery</span>
                 </div>
               </li>
             </ul>
           </div>
 
-          <div className={`w-full max-w-[450px] rounded-lg bg-white text-center p-8 border-2 border-gray-200 ${action === "Register" ? "h-auto lg:h-[600px]" : "h-auto lg:h-[520px]"}`}>
+          <div className='w-full lg:max-w-sm rounded-2xl bg-white/40 backdrop-blur-lg text-center p-8 border border-white/50 shadow-2xl text-[#4B1B1B] lg:ml-auto'>
               <div className="flex flex-col items-center space-y-2 mb-6">
               <div className='bg-gradient-to-br from-[#7A1C1C] to-[#9B2D2D] p-2.5 rounded-lg shadow-lg'>
                 <ShieldCheck className="text-white w-8 h-8" />
@@ -163,6 +164,7 @@ const Login = () => {
                 
 
             </div>
+          </div>
           </div>
         </section>
       </header>

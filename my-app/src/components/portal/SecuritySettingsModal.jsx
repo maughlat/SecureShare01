@@ -28,19 +28,7 @@ export const SecuritySettingsModal = ({ onClose, onSave }) => {
         </div>
 
         <div className='px-6 py-5 space-y-5'>
-          <div className='flex items-start gap-3'>
-            <Lock className='w-5 h-5 text-slate-500 mt-0.5' />
-            <div className='flex-1'>
-              <div className='flex items-center justify-between'>
-                <p className='font-semibold text-slate-800'>Two-factor authentication</p>
-                <label className="inline-flex items-center cursor-pointer">
-                  <input type="checkbox" className="sr-only peer" checked={twoFactor} onChange={(e)=>setTwoFactor(e.target.checked)} />
-                  <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:bg-[#7A1C1C] after:content-[''] after:absolute after:mt-[2px] after:ml-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all relative peer-checked:after:translate-x-5"></div>
-                </label>
-              </div>
-              <p className='text-sm text-slate-500'>Require a code on sign-in.</p>
-            </div>
-          </div>
+          
 
           <div className='flex items-start gap-3'>
             <KeyRound className='w-5 h-5 text-slate-500 mt-0.5' />

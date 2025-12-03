@@ -7,95 +7,101 @@ import andrianPic from '../../assets/andrian_pic.JPG'
 
 export const About = () => {
   return (
-    <div className="min-h-screen bg-white">
-      <div className="flex items-start justify-center px-4 pt-16 md:pt-24 pb-16">
-        <div className="text-center max-w-4xl">
-          <h1 className="text-4xl md:text-6xl font-black text-[#7A1C1C] mb-6 mt-20 leading-tight text-pretty">
-            Our mission is to make academic collaboration<br />safer, simpler, and<br />more organized.
-          </h1>
-          <p className="text-base md:text-xl text-[#7A1C1C] opacity-80 pb-20">
-            A secure platform for students and teachers to share and manage files with confidence.
-          </p>
+    <div className="min-h-screen bg-radial-at-center from-[#F9F0D9] to-[#F2F2F2] py-16 px-4">
+      <div className="max-w-7xl mx-auto flex flex-col gap-10">
+        <div className="w-full">
+          <div className="w-full text-center bg-white/30 backdrop-blur-xl border border-white/30 rounded-3xl shadow-2xl px-6 py-12 md:px-12 md:py-16">
+            <h1 className="text-4xl md:text-6xl font-black text-[#7A1C1C] mb-6 leading-tight text-pretty">
+              Our mission is to make academic collaboration<br />safer, simpler, and<br />more organized.
+            </h1>
+            <p className="text-base md:text-xl text-[#7A1C1C] opacity-80">
+              A secure platform for students and teachers to share and manage files with confidence.
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* Our Team Section */}
-      <div className="bg-[#7A1C1C] py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-black text-white text-center mb-12">
+        {/* Our Team Section */}
+        <div className="w-full bg-[#7A1C1C]/65 backdrop-blur-3xl border border-white/30 rounded-3xl shadow-xl px-6 py-12 md:px-10 md:py-14">
+          <h2 className="text-3xl md:text-4xl font-black text-white text-center mb-10">
             Our Team
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7">
             {/* Toni Ahn Narra */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
+            <div className="max-w-sm mx-auto rounded-[32px] overflow-hidden shadow-2xl border border-white/25 backdrop-blur-xl bg-white/5">
+              {/* Image */}
+              <div className="bg-[#111111]">
                 <img 
                   src={toniPic} 
                   alt="Toni Ahn Narra" 
-                  style={{ width: '407px', height: '611px' }}
-                  className="object-cover rounded-lg border border-black"
+                  className="w-full h-[360px] object-cover"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">
-                Toni Ahn Narra
-              </h3>
-              <p className="text-sm text-white mb-4">
-                Developed the Front End & Back End
-              </p>
-              <div className="flex justify-center gap-4">
-                <FaFacebook className="text-white text-xl cursor-pointer hover:text-gray-300" />
-                <FaLinkedin className="text-white text-xl cursor-pointer hover:text-gray-300" />
-                <FaXTwitter className="text-white text-xl cursor-pointer hover:text-gray-300" />
-                <FaInstagram className="text-white text-xl cursor-pointer hover:text-gray-300" />
+              {/* Glass bottom panel */}
+              <div className="bg-[#F2C4C4]/65 backdrop-blur-2xl border-t border-white/40 px-6 py-5 flex flex-col items-center">
+                <h3 className="text-lg font-bold text-[#7A1C1C] mb-1">
+                  Toni Ahn Narra
+                </h3>
+                <p className="text-xs text-[#7A1C1C]/80 mb-4">
+                  Developed the Back End
+                </p>
+                <div className="flex justify-center gap-5 text-[#7A1C1C] text-lg">
+                  <a href="https://www.facebook.com/to.ni.345792" target="_blank" className="cursor-pointer hover:text-[#a53131] transition-colors"><FaFacebook /></a>
+                  <a href="https://linkedin.com/in/toni-ahn-narra-703421299" target="_blank" className="cursor-pointer hover:text-[#a53131] transition-colors"><FaLinkedin /></a>
+                  <a href="https://www.instagram.com/tonisoprano._/" target="_blank" className="cursor-pointer hover:text-[#a53131] transition-colors"><FaInstagram /></a>
+                </div>
               </div>
             </div>
 
             {/* Jan Mikylla Tabamo */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
+            <div className="max-w-sm mx-auto rounded-[32px] overflow-hidden shadow-2xl border border-white/25 backdrop-blur-xl bg-white/5">
+              {/* Image */}
+              <div className="bg-[#111111]">
                 <img 
                   src={mikaPic} 
                   alt="Jan Mikylla Tabamo" 
-                  style={{ width: '407px', height: '611px' }}
-                  className="object-cover rounded-lg border border-black"
+                  className="w-full h-[360px] object-cover"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">
-                Jan Mikylla Tabamo
-              </h3>
-              <p className="text-sm text-white mb-4">
-                Developed the Front End & Back End
-              </p>
-              <div className="flex justify-center gap-4">
-                <FaFacebook className="text-white text-xl cursor-pointer hover:text-gray-300" />
-                <FaLinkedin className="text-white text-xl cursor-pointer hover:text-gray-300" />
-                <FaXTwitter className="text-white text-xl cursor-pointer hover:text-gray-300" />
-                <FaInstagram className="text-white text-xl cursor-pointer hover:text-gray-300" />
+              {/* Glass bottom panel */}
+              <div className="bg-[#F2C4C4]/65 backdrop-blur-2xl border-t border-white/40 px-6 py-5 flex flex-col items-center">
+                <h3 className="text-lg font-bold text-[#7A1C1C] mb-1">
+                  Jan Mikylla Tabamo
+                </h3>
+                <p className="text-xs text-[#7A1C1C]/80 mb-4">
+                  Developed the Front End &amp; Back End
+                </p>
+                <div className="flex justify-center gap-5 text-[#7A1C1C] text-lg">
+                  <a href="https://www.facebook.com/janmikylla.tabamo" target="_blank" className="cursor-pointer hover:text-[#a53131] transition-colors"><FaFacebook /></a>
+                   <a href="https://linkedin.com/in/mikylla-tabamo-49a526338" target="_blank" className="cursor-pointer hover:text-[#a53131] transition-colors"><FaLinkedin /></a>
+                  <a href="https://www.instagram.com/bbly.mika/" target="_blank" className="cursor-pointer hover:text-[#a53131] transition-colors"><FaInstagram /></a>
+                </div>
               </div>
             </div>
 
             {/* Andrian Veliganio */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <img 
+            <div className="max-w-sm mx-auto rounded-[32px] overflow-hidden shadow-2xl border border-white/25 backdrop-blur-xl bg-white/5">
+              {/* Image */}
+              <div className="bg-[#111111]">
+                <img  
                   src={andrianPic} 
                   alt="Andrian Veliganio" 
-                  style={{ width: '407px', height: '611px' }}
-                  className="object-cover rounded-lg border border-black"
+                  className="w-full h-[360px] object-cover"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">
-                Andrian Veliganio
-              </h3>
-              <p className="text-sm text-white mb-4">
-                Developed the Front End & Back End
-              </p>
-              <div className="flex justify-center gap-4">
-                <FaFacebook className="text-white text-xl cursor-pointer hover:text-gray-300" />
-                <FaLinkedin className="text-white text-xl cursor-pointer hover:text-gray-300" />
-                <FaXTwitter className="text-white text-xl cursor-pointer hover:text-gray-300" />
-                <FaInstagram className="text-white text-xl cursor-pointer hover:text-gray-300" />
+              {/* Glass bottom panel */}
+              <div className="bg-[#F2C4C4]/65 backdrop-blur-2xl border-t border-white/40 px-6 py-5 flex flex-col items-center">
+                <h3 className="text-lg font-bold text-[#7A1C1C] mb-1">
+                  Andrian Veliganio
+                </h3>
+                <p className="text-xs text-[#7A1C1C]/80 mb-4">
+                  Developed the Front End
+                </p>
+                <div className="flex justify-center gap-5 text-[#7A1C1C] text-lg">
+                  <a href="https://www.facebook.com/andrian.2005" target="_blank" className="cursor-pointer hover:text-[#a53131] transition-colors"><FaFacebook /></a>
+                  <a href="https://www.linkedin.com/in/andrian-veliganio-3b9813381/" target="_blank" className="cursor-pointer hover:text-[#a53131] transition-colors"><FaLinkedin /></a>
+                  <a href="https://www.instagram.com/andriaaanxx/" target="_blank" className="cursor-pointer hover:text-[#a53131] transition-colors"><FaInstagram /></a>
+                </div>
               </div>
             </div>
           </div>

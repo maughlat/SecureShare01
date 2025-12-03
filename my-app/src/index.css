@@ -2,35 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global typography */
 body {
   font-family: 'Inter', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-color: #f6f7fb;
 }
 
-.body-container {
-  padding: 40px;
-  text-align: center;
+/* SecureShare glassy background system (inspired by TUPConnect) */
+.background-glow {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(163, 39, 39, 0.18), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(255, 193, 193, 0.28), transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(90, 21, 21, 0.24), transparent 55%);
+  filter: blur(40px);
+  z-index: -2;
 }
 
-.body-container h1 {
-  font-size: 32px;
-  margin-bottom: 15px;
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.body-container p {
-  font-size: 18px;
-  margin-bottom: 20px;
+/* Soft top highlight */
+body::before {
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(255, 255, 255, 0.75),
+    rgba(249, 224, 224, 0.35),
+    transparent 65%
+  );
 }
 
-.body-container button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  background-color: #333;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.body-container button:hover {
-  opacity: 0.8;
+/* Subtle bottom shadow using muted SecureShare red */
+body::after {
+  background: radial-gradient(
+    circle at 50% 100%,
+    rgba(48, 9, 9, 0.28),
+    rgba(17, 6, 6, 0.35),
+    transparent 60%
+  );
 }

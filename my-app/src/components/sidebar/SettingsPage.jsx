@@ -29,8 +29,8 @@ export const SettingsPage = () => {
           <div className='px-6 py-6 text-slate-700'>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
               <div className='p-4 border border-slate-200 rounded-lg'>
-                <p className='font-semibold mb-1'>Two-Factor Authentication</p>
-                <p className='text-sm text-slate-500 mb-3'>Enhance your account security with 2FA.</p>
+                <p className='font-semibold mb-1'>Link Expiration</p>
+                <p className='text-sm text-slate-500 mb-3'>Shared links expire in desired time.</p>
                 <button onClick={() => setShowSecuritySettingsModal(true)} className='text-sm inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-slate-200 hover:border-[#7A1C1C] hover:text-[#7A1C1C]'>
                   <Shield className='w-4 h-4' />
                   Configure

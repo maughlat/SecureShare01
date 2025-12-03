@@ -9,6 +9,7 @@ import { SettingsPage } from "./components/sidebar/SettingsPage";
 import Login from "./components/login/Login";
 import Navbar from "./components/login/Navbar";
 import { About } from "./components/login/About";
+import { Security } from "./components/login/Security";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/security" element={<><Navbar /><Security /></>} />
         <Route path="/about" element={<><Navbar /><About /></>} />
 
         <Route
