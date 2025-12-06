@@ -21,8 +21,8 @@ export const About = () => {
         </div>
 
         {/* Our Team Section */}
-        <div className="w-full bg-[#7A1C1C]/65 backdrop-blur-3xl border border-white/30 rounded-3xl shadow-xl px-6 py-12 md:px-10 md:py-14">
-          <h2 className="text-3xl md:text-4xl font-black text-white text-center mb-10">
+        <div className="w-full bg-[#7A1C1C]/25 backdrop-blur-xl border border-[#7A1C1C]/30 rounded-3xl shadow-2xl px-6 py-12 md:px-10 md:py-14">
+          <h2 className="text-3xl md:text-4xl font-black text-[#7A1C1C] text-center mb-10">
             Our Team
           </h2>
           
@@ -110,5 +110,3 @@ export const About = () => {
     </div>
   )
 }
-
-

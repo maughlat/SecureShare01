@@ -1,23 +1,59 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Search, ShieldCheck, Menu, Bell, User } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { supabase } from '../../lib/supabase'
 
 export const PortalNavbar = ({ onToggleSidebar }) => {
   const [openUserMenu, setOpenUserMenu] = useState(false)
+  const [showNotifications, setShowNotifications] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [unreadCount, setUnreadCount] = useState(3) // Mock unread count
+  const [userInfo, setUserInfo] = useState({ fullName: 'User', email: '', role: 'Student' })
   const userMenuRef = useRef(null)
+  const notificationRef = useRef(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    // Get user info from localStorage
+    const authUser = localStorage.getItem('authUser')
+    if (authUser) {
+      try {
+        const user = JSON.parse(authUser)
+        setUserInfo({
+          fullName: user.fullName || user.email?.split('@')[0] || 'User',
+          email: user.email || '',
+          role: user.role || 'Student'
+        })
+      } catch (e) {
+        console.error('Error parsing user info:', e)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     function onClickOutside(e) {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
         setOpenUserMenu(false)
       }
+      if (notificationRef.current && !notificationRef.current.contains(e.target)) {
+        setShowNotifications(false)
+      }
     }
     document.addEventListener('mousedown', onClickOutside)
     return () => document.removeEventListener('mousedown', onClickOutside)
   }, [])
 
-  const handleLogout = () => {
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      // TODO: Implement search functionality
+    }
+  }
+
+  const handleLogout = async () => {
+    // Sign out from Supabase
+    await supabase.auth.signOut()
+    
     localStorage.removeItem('authUser')
     navigate('/login')
   }
@@ -39,14 +75,16 @@ export const PortalNavbar = ({ onToggleSidebar }) => {
       </div>
 
       {/* Search Bar */}
-      <div className="hidden md:flex items-center bg-white border border-transparent rounded-lg px-4 py-2.5 w-full max-w-md shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:ring-2 focus-within:ring-[#9B2D2D]">
+      <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center bg-white border border-transparent rounded-lg px-4 py-2.5 w-full max-w-md shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:ring-2 focus-within:ring-[#9B2D2D]">
         <Search className="text-slate-500 w-4 h-4 mr-2 flex-shrink-0" />
         <input
           type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search files, assignments..."
           className="w-full outline-none text-sm text-slate-700 placeholder-slate-400"
         />
-      </div>
+      </form>
 
       {/* Right Side Actions */}
       <ul className="flex items-center gap-4 lg:gap-6">
@@ -56,21 +94,76 @@ export const PortalNavbar = ({ onToggleSidebar }) => {
             <span>Encrypted</span>
           </button>
         </li>
-        <li className="hidden lg:block">
-          <button className="p-2.5 text-white hover:bg-white/10 rounded-lg transition-colors duration-200 relative">
+        <li className="hidden lg:block relative" ref={notificationRef}>
+          <button 
+            onClick={() => setShowNotifications(!showNotifications)}
+            className="p-2.5 text-white hover:bg-white/10 rounded-lg transition-colors duration-200 relative"
+          >
             <Bell className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-white rounded-full"></span>
+            {unreadCount > 0 && (
+              <span className="absolute top-1 right-1 min-w-[18px] h-[18px] bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center px-1">
+                {unreadCount > 9 ? '9+' : unreadCount}
+              </span>
+            )}
           </button>
+          {showNotifications && (
+            <div className="absolute right-0 mt-2 w-80 bg-white text-slate-800 rounded-lg shadow-lg border border-slate-200 overflow-hidden z-50 max-h-96 overflow-y-auto">
+              <div className="px-4 py-3 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <h3 className="text-sm font-bold text-slate-800">Notifications</h3>
+              </div>
+              <div className="divide-y divide-slate-100">
+                {unreadCount > 0 ? (
+                  <>
+                    <div className="px-4 py-3 hover:bg-slate-50 cursor-pointer">
+                      <p className="text-sm font-semibold text-slate-800">New assignment posted</p>
+                      <p className="text-xs text-slate-500 mt-1">CS101 - Introduction to Programming</p>
+                      <p className="text-xs text-slate-400 mt-1">2 hours ago</p>
+                    </div>
+                    <div className="px-4 py-3 hover:bg-slate-50 cursor-pointer">
+                      <p className="text-sm font-semibold text-slate-800">Grade received</p>
+                      <p className="text-xs text-slate-500 mt-1">Your assignment has been graded</p>
+                      <p className="text-xs text-slate-400 mt-1">1 day ago</p>
+                    </div>
+                    <div className="px-4 py-3 hover:bg-slate-50 cursor-pointer">
+                      <p className="text-sm font-semibold text-slate-800">File shared with you</p>
+                      <p className="text-xs text-slate-500 mt-1">Lecture notes from Prof. Smith</p>
+                      <p className="text-xs text-slate-400 mt-1">2 days ago</p>
+                    </div>
+                  </>
+                ) : (
+                  <div className="px-4 py-8 text-center text-slate-400">
+                    <Bell className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                    <p className="text-sm">No new notifications</p>
+                  </div>
+                )}
+              </div>
+              {unreadCount > 0 && (
+                <div className="px-4 py-2 border-t border-slate-100 bg-slate-50">
+                  <button 
+                    onClick={() => {
+                      setUnreadCount(0)
+                      setShowNotifications(false)
+                    }}
+                    className="text-xs text-[#7A1C1C] font-semibold hover:underline"
+                  >
+                    Mark all as read
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </li>
-        <li className="hidden lg:block" ref={userMenuRef}>
+        <li className="hidden lg:block relative" ref={userMenuRef}>
           <button onClick={() => setOpenUserMenu((v) => !v)} className="p-2.5 text-white hover:bg-white/10 rounded-lg transition-colors duration-200 relative">
             <User className="w-5 h-5" />
           </button>
           {openUserMenu && (
-            <div className="absolute right-0 mt-2 w-56 bg-white text-slate-800 rounded-lg shadow-lg border border-slate-200 overflow-hidden">
+            <div className="absolute right-0 mt-2 w-56 bg-white text-slate-800 rounded-lg shadow-lg border border-slate-200 overflow-hidden z-50">
               <div className="px-4 py-3 border-b border-slate-100">
                 <p className="text-sm text-slate-500">Signed in as</p>
-                <p className="text-sm font-semibold text-slate-800">Alex Johnson</p>
+                <p className="text-sm font-semibold text-slate-800">{userInfo.fullName}</p>
+                <p className="text-xs text-slate-400 mt-1">{userInfo.email}</p>
+                <p className="text-xs text-[#7A1C1C] font-medium mt-1">{userInfo.role}</p>
               </div>
               <button onClick={handleLogout} className="w-full text-left px-4 py-2.5 text-sm hover:bg-slate-50">Log out</button>
             </div>

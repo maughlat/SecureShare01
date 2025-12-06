@@ -1,19 +1,18 @@
-// UPDATED: Added useState import for modal state management
+// Teacher Homepage - Identical to Student Portal Homepage
 import React, { useState, useEffect } from 'react'
-// ADDED: Import FileUpload component
-import { FileUpload } from './FileUpload'
-import { CreateFolderModal } from './CreateFolderModal'
-import { ShareAccessModal } from './ShareAccessModal'
-import { SecuritySettingsModal } from './SecuritySettingsModal'
+import { FileUpload } from '../portal/FileUpload'
+import { CreateFolderModal } from '../portal/CreateFolderModal'
+import { ShareAccessModal } from '../portal/ShareAccessModal'
+import { SecuritySettingsModal } from '../portal/SecuritySettingsModal'
 import { Upload, FolderPlus, Share2, Settings, FileText, Clock, Download, Users, TrendingUp } from 'lucide-react'
 
-export const Portal = () => {
-  // ADDED: State to control upload modal visibility
+export const TeacherHomepage = () => {
+  // State to control upload modal visibility
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showCreateFolderModal, setShowCreateFolderModal] = useState(false);
   const [showShareAccessModal, setShowShareAccessModal] = useState(false);
   const [showSecuritySettingsModal, setShowSecuritySettingsModal] = useState(false);
-  const [userName, setUserName] = useState('Student');
+  const [userName, setUserName] = useState('Teacher');
 
   useEffect(() => {
     // Get user name from localStorage
@@ -21,7 +20,7 @@ export const Portal = () => {
     if (authUser) {
       try {
         const user = JSON.parse(authUser);
-        setUserName(user.fullName || user.email?.split('@')[0] || 'Student');
+        setUserName(user.fullName || user.email?.split('@')[0] || 'Teacher');
       } catch (e) {
         console.error('Error parsing user info:', e);
       }
@@ -98,7 +97,6 @@ export const Portal = () => {
           <h2 className='text-2xl lg:text-3xl font-bold text-slate-800 mb-6'>Quick Actions</h2>
 
           <ul className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5'>
-            {/* UPDATED: Made this clickable to open upload modal */}
             <li 
               onClick={() => setShowUploadModal(true)}
               className='bg-gradient-to-br from-white to-slate-50 w-full px-6 py-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-xl cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#7A1C1C] group'
@@ -279,7 +277,7 @@ export const Portal = () => {
         </section>
       </div>
 
-      {/* ADDED: File upload modal - shown when showUploadModal is true */}
+      {/* File upload modal - shown when showUploadModal is true */}
       {showUploadModal && (
         <FileUpload onClose={() => setShowUploadModal(false)} />
       )}
@@ -292,15 +290,7 @@ export const Portal = () => {
       {showSecuritySettingsModal && (
         <SecuritySettingsModal onClose={() => setShowSecuritySettingsModal(false)} onSave={() => {}} />
       )}
-  </header>
+    </header>
   )
 }
-
-
-
-
-
-
-
-
 

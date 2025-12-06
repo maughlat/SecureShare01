@@ -1,5 +1,5 @@
 import React from 'react'
-import { Home, Folder, Share2, Trash2, Settings } from 'lucide-react'
+import { Home, Folder, Share2, Trash2, Settings, BookOpen } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
 export const Sidebar = ({ collapsed }) => {
@@ -14,6 +14,12 @@ export const Sidebar = ({ collapsed }) => {
             <NavLink to="/portal" end className={({isActive})=>`flex items-center gap-3 px-4 py-3 hover:bg-white/10 ${isActive? 'bg-white/10' : ''}`}>
               <Home className="w-5 h-5" />
               <span className={`${labelClass} text-sm font-medium`}>Home</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="my-classes" className={({isActive})=>`flex items-center gap-3 px-4 py-3 hover:bg-white/10 ${isActive? 'bg-white/10' : ''}`}>
+              <BookOpen className="w-5 h-5" />
+              <span className={`${labelClass} text-sm font-medium`}>My Classes</span>
             </NavLink>
           </li>
           <li>

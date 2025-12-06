@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
-import { X, Share2, Mail, UserPlus } from 'lucide-react'
+import { X, Share2, Mail, UserPlus, Upload, FileText } from 'lucide-react'
 
 export const ShareAccessModal = ({ onClose, onShare }) => {
   const [emails, setEmails] = useState('')
-  const [role, setRole] = useState('Viewer')
+  const [role, setRole] = useState('Student')
+  const [selectedFile, setSelectedFile] = useState(null)
   const [error, setError] = useState('')
+
+  const handleFileSelect = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0])
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -13,8 +20,12 @@ export const ShareAccessModal = ({ onClose, onShare }) => {
       setError('Enter at least one email')
       return
     }
+    if (!selectedFile) {
+      setError('Please select a file to share')
+      return
+    }
     setError('')
-    if (onShare) onShare({ emails: list, role })
+    if (onShare) onShare({ emails: list, role, file: selectedFile })
     onClose()
   }
 
@@ -34,8 +45,33 @@ export const ShareAccessModal = ({ onClose, onShare }) => {
         </div>
 
         <form onSubmit={handleSubmit} className="px-6 py-5 space-y-5">
+          {/* File Selection */}
           <div>
-            <label className='block text-sm font-semibold text-slate-700 mb-2'>Invite by email</label>
+            <label className='block text-sm font-semibold text-slate-700 mb-2'>
+              Choose File <span className='text-red-500'>*</span>
+            </label>
+            <label className='block'>
+              <input
+                type='file'
+                className='hidden'
+                onChange={handleFileSelect}
+                accept='.pdf,.doc,.docx,.ppt,.pptx,.jpg,.png'
+              />
+              <div className='flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-slate-300 rounded-lg hover:border-[#7A1C1C] transition-colors cursor-pointer'>
+                <Upload className='w-5 h-5 text-slate-400' />
+                <span className='text-sm font-medium text-slate-600'>
+                  {selectedFile ? selectedFile.name : 'Choose File'}
+                </span>
+              </div>
+            </label>
+            <p className='mt-1 text-xs text-slate-500'>Accepted: PDF, DOC, DOCX, PPT, PPTX, JPG, PNG</p>
+          </div>
+
+          {/* Email Input */}
+          <div>
+            <label className='block text-sm font-semibold text-slate-700 mb-2'>
+              Invite by Email <span className='text-red-500'>*</span>
+            </label>
             <div className='flex items-center border rounded-lg px-3 py-2 border-slate-300 focus-within:border-[#7A1C1C]'>
               <Mail className='w-4 h-4 text-slate-400 mr-2' />
               <input
@@ -47,25 +83,30 @@ export const ShareAccessModal = ({ onClose, onShare }) => {
               />
             </div>
             <p className='mt-1 text-xs text-slate-500'>Separate multiple emails with commas</p>
-            {error && <p className='mt-2 text-xs text-red-600'>{error}</p>}
           </div>
 
+          {/* Role Selection */}
           <div>
             <label className='block text-sm font-semibold text-slate-700 mb-2'>Role</label>
             <div className='flex items-center gap-2'>
               <UserPlus className='w-4 h-4 text-slate-400' />
-              <select value={role} onChange={(e) => setRole(e.target.value)} className='border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#7A1C1C]'>
-                <option>Viewer</option>
-                <option>Editor</option>
-                <option>Owner</option>
+              <select 
+                value={role} 
+                onChange={(e) => setRole(e.target.value)} 
+                className='border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#7A1C1C] w-full'
+              >
+                <option value='Student'>Student</option>
+                <option value='Teacher'>Teacher</option>
               </select>
             </div>
           </div>
+
+          {error && <p className='text-xs text-red-600 bg-red-50 p-2 rounded'>{error}</p>}
         </form>
 
         <div className='flex items-center justify-end gap-2 px-6 py-4 border-t border-slate-200 bg-slate-50'>
-          <button onClick={onClose} type='button' className='px-4 py-2 text-sm rounded-lg border border-slate-300 text-slate-700 hover:bg-white'>Cancel</button>
-          <button onClick={handleSubmit} type='submit' className='px-4 py-2 text-sm rounded-lg text-white bg-[#7A1C1C] hover:bg-[#5a1515]'>Share</button>
+          <button onClick={onClose} type='button' className='px-4 py-2 text-sm rounded-lg border border-slate-300 text-slate-700 hover:bg-white transition-colors'>Cancel</button>
+          <button onClick={handleSubmit} type='submit' className='px-4 py-2 text-sm rounded-lg text-white bg-[#7A1C1C] hover:bg-[#5a1515] transition-colors'>Share</button>
         </div>
       </div>
     </div>

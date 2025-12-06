@@ -5,6 +5,46 @@ import { ShareAccessModal } from '../portal/ShareAccessModal'
 export const SharedPage = () => {
   const [showShareAccessModal, setShowShareAccessModal] = useState(false)
 
+  // Calculate days remaining until link expiry
+  const calculateDaysRemaining = (expiryDate) => {
+    if (!expiryDate) return 0
+    const today = new Date()
+    const expiry = new Date(expiryDate)
+    // Check if date is valid
+    if (isNaN(expiry.getTime())) return 0
+    const diffTime = expiry - today
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    return diffDays > 0 ? diffDays : 0
+  }
+
+  // Mock shared items with expiry dates
+  const sharedItems = [
+    {
+      id: 1,
+      name: 'Group Presentation 1',
+      extension: '.pptx',
+      sharedBy: 'You',
+      sharedDate: '3 days ago',
+      expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
+    },
+    {
+      id: 2,
+      name: 'Group Presentation 2',
+      extension: '.pptx',
+      sharedBy: 'You',
+      sharedDate: '5 days ago',
+      expiryDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) // 2 days from now
+    },
+    {
+      id: 3,
+      name: 'Group Presentation 3',
+      extension: '.pptx',
+      sharedBy: 'You',
+      sharedDate: '1 week ago',
+      expiryDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days from now
+    }
+  ]
+
   return (
     <div className='container mx-auto bg-gradient-to-br from-slate-50 via-white to-slate-50 min-h-[calc(100vh-64px)] m-0 p-0'>
       <div className='px-6 lg:px-12 pt-8 pb-6'>
@@ -28,30 +68,53 @@ export const SharedPage = () => {
           </div>
           <div className='overflow-y-auto'>
             <ul className='divide-y divide-slate-100'>
-              {[1,2,3].map((id) => (
-                <li key={id} className='px-6 py-4 hover:bg-slate-50 transition-colors duration-150 cursor-pointer group'>
-                  <div className='flex items-start justify-between'>
-                    <div className='flex items-start gap-3 flex-1'>
-                      <div className='p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors mt-1'>
-                        <FileText className='w-4 h-4 text-blue-600' />
-                      </div>
-                      <div className='flex-1'>
-                        <p className='font-semibold text-slate-800 mb-1 group-hover:text-[#7A1C1C] transition-colors'>
-                          Group Presentation {id}<span className='text-slate-500 font-normal'>.pptx</span>
-                        </p>
-                        <p className='text-xs text-slate-500 flex items-center gap-3 flex-wrap'>
-                          <span>Shared by You</span>
-                          <span>•</span>
-                          <span className='flex items-center gap-1'>
-                            <Clock className='w-3 h-3' />
-                            <span>3 days ago</span>
-                          </span>
-                        </p>
+              {sharedItems.map((item) => {
+                const daysRemaining = calculateDaysRemaining(item.expiryDate)
+                return (
+                  <li key={item.id} className='px-6 py-4 hover:bg-slate-50 transition-colors duration-150 cursor-pointer group'>
+                    <div className='flex items-start justify-between'>
+                      <div className='flex items-start gap-3 flex-1'>
+                        <div className='p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors mt-1'>
+                          <FileText className='w-4 h-4 text-blue-600' />
+                        </div>
+                        <div className='flex-1'>
+                          <p className='font-semibold text-slate-800 mb-1 group-hover:text-[#7A1C1C] transition-colors'>
+                            {item.name}<span className='text-slate-500 font-normal'>{item.extension}</span>
+                          </p>
+                          <p className='text-xs text-slate-500 flex items-center gap-3 flex-wrap'>
+                            <span>Shared by {item.sharedBy}</span>
+                            <span>•</span>
+                            <span className='flex items-center gap-1'>
+                              <Clock className='w-3 h-3' />
+                              <span>{item.sharedDate}</span>
+                            </span>
+                            {daysRemaining > 0 && (
+                              <>
+                                <span>•</span>
+                                <span className={`font-semibold ${
+                                  daysRemaining <= 3 ? 'text-red-600' : 
+                                  daysRemaining <= 7 ? 'text-yellow-600' : 
+                                  'text-green-600'
+                                }`}>
+                                  {daysRemaining} {daysRemaining === 1 ? 'day' : 'days'} remaining
+                                </span>
+                              </>
+                            )}
+                            {daysRemaining === 0 && (
+                              <>
+                                <span>•</span>
+                                <span className='font-semibold text-red-600'>
+                                  Expired
+                                </span>
+                              </>
+                            )}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>
