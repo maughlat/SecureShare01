@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ArrowLeft, BookOpen, Users, Calendar, Plus, FileText, Clock, CheckCircle } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { AddAssignmentModal } from './AddAssignmentModal'
 
 export const CourseDetailView = () => {
   const navigate = useNavigate()
   const { courseId } = useParams()
+  const [showAddAssignmentModal, setShowAddAssignmentModal] = useState(false)
   
   // Mock data - in production, this would come from API based on courseId
   const course = {
@@ -16,8 +18,8 @@ export const CourseDetailView = () => {
     description: 'An introductory course covering fundamental concepts of computer science including programming basics, data structures, and algorithms.'
   }
 
-  // Mock assignments data
-  const assignments = [
+  // Mock assignments data - using state to allow adding new assignments
+  const [assignments, setAssignments] = useState([
     {
       id: 1,
       title: 'Assignment 1: Introduction to Programming',
@@ -42,10 +44,31 @@ export const CourseDetailView = () => {
       totalStudents: 45,
       status: 'upcoming'
     }
-  ]
+  ])
 
   const handleAddAssignment = () => {
-    // TODO: Implement assignment creation modal
+    setShowAddAssignmentModal(true)
+  }
+
+  const handleCreateAssignment = (assignmentData) => {
+    // Create new assignment object
+    const newAssignment = {
+      id: assignments.length > 0 ? Math.max(...assignments.map(a => a.id)) + 1 : 1,
+      title: assignmentData.title,
+      dueDate: assignmentData.dueDate,
+      submissions: 0,
+      totalStudents: course.enrolledStudents,
+      status: 'upcoming',
+      description: assignmentData.description || '',
+      maxPoints: assignmentData.maxPoints,
+      dueTime: assignmentData.dueTime
+    }
+
+    // Add to assignments list
+    setAssignments([...assignments, newAssignment])
+    
+    // In production, this would make an API call to save the assignment
+    // TODO: Replace with API call and toast notification
   }
 
   return (
@@ -195,6 +218,17 @@ export const CourseDetailView = () => {
           </div>
         </div>
       </div>
+
+      {/* Add Assignment Modal */}
+      {showAddAssignmentModal && (
+        <AddAssignmentModal
+          onClose={() => setShowAddAssignmentModal(false)}
+          onSave={(assignmentData) => {
+            handleCreateAssignment(assignmentData)
+            setShowAddAssignmentModal(false)
+          }}
+        />
+      )}
     </div>
   )
 }
