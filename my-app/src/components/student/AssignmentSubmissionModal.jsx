@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { X, Upload, FileText } from 'lucide-react'
+import { X, Upload, FileText, Download, Paperclip } from 'lucide-react'
 
 export const AssignmentSubmissionModal = ({ assignment, onClose, onSubmit }) => {
   const [selectedFile, setSelectedFile] = useState(null)
@@ -42,10 +42,10 @@ export const AssignmentSubmissionModal = ({ assignment, onClose, onSubmit }) => 
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4 overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-4xl mx-4 my-4 overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white flex-shrink-0">
           <div className='flex items-center gap-3'>
             <div className='p-2 rounded-lg bg-gradient-to-br from-[#7A1C1C] to-[#9B2D2D]'>
               <Upload className='w-5 h-5 text-white' />
@@ -64,28 +64,84 @@ export const AssignmentSubmissionModal = ({ assignment, onClose, onSubmit }) => 
         </div>
 
         {/* Content */}
-        <div className="px-6 py-6 flex-1">
+        <div className="px-6 py-6 flex-1 overflow-y-auto">
           <div className="space-y-6">
             {/* Assignment Info */}
             {assignment && (
               <div>
-                <h3 className='font-semibold text-slate-800 mb-2'>Assignment Details</h3>
-                <div className='bg-slate-50 rounded-lg p-4 space-y-2 text-sm'>
-                  <p><span className='font-medium'>Title:</span> {assignment.title}</p>
-                  <p><span className='font-medium'>Due Date:</span> {assignment.dueDate}</p>
-                  {assignment.status && (
-                    <p><span className='font-medium'>Status:</span> 
-                      <span className={`ml-2 px-2 py-1 rounded-full text-xs font-semibold ${
-                        assignment.status === 'submitted' 
-                          ? 'bg-green-100 text-green-800' 
-                          : assignment.status === 'pending'
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : 'bg-slate-100 text-slate-600'
-                      }`}>
-                        {assignment.status === 'submitted' ? 'Submitted' : 
-                         assignment.status === 'pending' ? 'Pending' : 'Not Started'}
-                      </span>
-                    </p>
+                <h3 className='font-semibold text-slate-800 mb-4 text-lg'>Assignment Details</h3>
+                <div className='bg-slate-50 rounded-lg p-5 space-y-4'>
+                  {/* Top Row: Title, Due Date, Status */}
+                  <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                    <div>
+                      <p className='font-medium text-slate-700 mb-1 text-xs uppercase tracking-wide'>Title</p>
+                      <p className='text-slate-800 font-medium'>{assignment.title}</p>
+                    </div>
+                    
+                    <div>
+                      <p className='font-medium text-slate-700 mb-1 text-xs uppercase tracking-wide'>Due Date</p>
+                      <p className='text-slate-800 font-medium'>{assignment.dueDate}</p>
+                    </div>
+
+                    {assignment.status && (
+                      <div>
+                        <p className='font-medium text-slate-700 mb-1 text-xs uppercase tracking-wide'>Status</p>
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                          assignment.status === 'submitted' 
+                            ? 'bg-green-100 text-green-800' 
+                            : assignment.status === 'pending'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-slate-100 text-slate-600'
+                        }`}>
+                          {assignment.status === 'submitted' ? 'Submitted' : 
+                           assignment.status === 'pending' ? 'Pending' : 'Not Started'}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Assignment Description */}
+                  {assignment.description && (
+                    <div className='border-t border-slate-200 pt-4'>
+                      <p className='font-medium text-slate-700 mb-2 text-xs uppercase tracking-wide'>Description</p>
+                      <div className='bg-white rounded-lg p-4 border border-slate-200 max-h-48 overflow-y-auto'>
+                        <p className='text-slate-700 whitespace-pre-wrap text-sm leading-relaxed'>{assignment.description}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Teacher's Attached Document */}
+                  {assignment.attachedFile && (
+                    <div className='border-t border-slate-200 pt-4'>
+                      <p className='font-medium text-slate-700 mb-2 text-xs uppercase tracking-wide'>Instructional Material</p>
+                      <div className='flex items-center gap-3'>
+                        <button
+                          onClick={() => {
+                            // Mock download function - in production, this would download from server
+                            if (assignment.attachedFile.url && assignment.attachedFile.url !== '#') {
+                              const link = document.createElement('a')
+                              link.href = assignment.attachedFile.url
+                              link.download = assignment.attachedFile.name
+                              document.body.appendChild(link)
+                              link.click()
+                              document.body.removeChild(link)
+                            } else {
+                              // Fallback: simulate download
+                              alert(`Downloading: ${assignment.attachedFile.name}\n\nIn production, this would download the file from the server.`)
+                            }
+                          }}
+                          className='flex items-center gap-2 px-4 py-2.5 bg-[#7A1C1C] hover:bg-[#5a1515] text-white font-medium rounded-lg transition-colors text-sm'
+                        >
+                          <Download className='w-4 h-4' />
+                          <span>Download: {assignment.attachedFile.name}</span>
+                        </button>
+                        {assignment.attachedFile.size && (
+                          <span className='text-xs text-slate-500'>
+                            ({(assignment.attachedFile.size / 1024).toFixed(2)} KB)
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>
@@ -197,10 +253,10 @@ export const AssignmentSubmissionModal = ({ assignment, onClose, onSubmit }) => 
 
         {/* Footer - Only show submit button if not submitted */}
         {!isSubmitted && (
-          <div className='flex items-center justify-end gap-3 px-6 py-4 border-t border-slate-200 bg-slate-50'>
+          <div className='flex items-center justify-end gap-3 px-6 py-4 border-t border-slate-200 bg-slate-50 flex-shrink-0'>
             <button 
               onClick={onClose}
-              className='px-4 py-2.5 border border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-white transition-colors'
+              className='px-5 py-2.5 border border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-white transition-colors'
             >
               Cancel
             </button>
@@ -217,7 +273,7 @@ export const AssignmentSubmissionModal = ({ assignment, onClose, onSubmit }) => 
         
         {/* Footer - Only close button if submitted */}
         {isSubmitted && (
-          <div className='flex items-center justify-end gap-3 px-6 py-4 border-t border-slate-200 bg-slate-50'>
+          <div className='flex items-center justify-end gap-3 px-6 py-4 border-t border-slate-200 bg-slate-50 flex-shrink-0'>
             <button 
               onClick={onClose}
               className='px-6 py-2.5 bg-[#7A1C1C] hover:bg-[#5a1515] text-white font-semibold rounded-lg transition-colors'

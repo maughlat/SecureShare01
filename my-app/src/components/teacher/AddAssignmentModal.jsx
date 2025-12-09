@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { X, FileText } from 'lucide-react'
+import { X, FileText, Paperclip } from 'lucide-react'
 
 export const AddAssignmentModal = ({ onClose, onSave }) => {
   const [title, setTitle] = useState('')
@@ -7,6 +7,7 @@ export const AddAssignmentModal = ({ onClose, onSave }) => {
   const [dueDate, setDueDate] = useState('')
   const [dueTime, setDueTime] = useState('')
   const [maxPoints, setMaxPoints] = useState('')
+  const [attachedFile, setAttachedFile] = useState(null)
   const [error, setError] = useState('')
 
   const handleSubmit = () => {
@@ -37,6 +38,15 @@ export const AddAssignmentModal = ({ onClose, onSave }) => {
     // Combine due date and time
     const dueDateTime = `${dueDate} ${dueTime}`
 
+    // Prepare file data (mock file name/URL)
+    const fileData = attachedFile ? {
+      name: attachedFile.name,
+      size: attachedFile.size,
+      type: attachedFile.type,
+      // In production, this would be the actual file URL after upload
+      url: URL.createObjectURL(attachedFile) // Mock URL for demo purposes
+    } : null
+
     // Call onSave with assignment data
     if (onSave) {
       onSave({
@@ -45,7 +55,8 @@ export const AddAssignmentModal = ({ onClose, onSave }) => {
         dueDate,
         dueTime,
         dueDateTime,
-        maxPoints: parseFloat(maxPoints)
+        maxPoints: parseFloat(maxPoints),
+        attachedFile: fileData
       })
     }
 
@@ -150,6 +161,48 @@ export const AddAssignmentModal = ({ onClose, onSave }) => {
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#7A1C1C] focus:border-transparent outline-none"
               />
             </div>
+
+            {/* File Attachment */}
+            <div>
+              <label className='block text-sm font-semibold text-slate-700 mb-2'>
+                Attach Document
+              </label>
+              <label className='block'>
+                <input
+                  type='file'
+                  className='hidden'
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setAttachedFile(e.target.files[0])
+                    }
+                  }}
+                  accept='.pdf,.doc,.docx,.ppt,.pptx,.txt,.zip'
+                />
+                <div className='flex items-center justify-center gap-2 px-6 py-4 border-2 border-dashed border-slate-300 rounded-lg hover:border-[#7A1C1C] transition-colors cursor-pointer'>
+                  <Paperclip className='w-5 h-5 text-slate-400' />
+                  <span className='text-sm font-medium text-slate-600'>
+                    {attachedFile ? attachedFile.name : 'Choose File (Optional)'}
+                  </span>
+                </div>
+              </label>
+              {attachedFile && (
+                <div className='mt-2 flex items-center gap-2'>
+                  <button
+                    type='button'
+                    onClick={() => setAttachedFile(null)}
+                    className='text-xs text-red-600 hover:text-red-700 font-medium'
+                  >
+                    Remove
+                  </button>
+                  <span className='text-xs text-slate-500'>
+                    • {(attachedFile.size / 1024).toFixed(2)} KB
+                  </span>
+                </div>
+              )}
+              <p className='mt-2 text-xs text-slate-500'>
+                Accepted formats: PDF, DOC, DOCX, PPT, PPTX, TXT, ZIP
+              </p>
+            </div>
           </div>
         </div>
 
@@ -172,4 +225,5 @@ export const AddAssignmentModal = ({ onClose, onSave }) => {
     </div>
   )
 }
+
 

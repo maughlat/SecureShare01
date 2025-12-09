@@ -36,7 +36,14 @@ export const StudentCourseDetails = () => {
       dueDate: '2024-02-20',
       status: 'pending',
       grade: null,
-      submittedAt: null
+      submittedAt: null,
+      description: 'Complete the following exercises on Python data types:\n\n1. Create variables for different data types (int, float, string, boolean, list, dictionary)\n2. Perform type conversions between compatible types\n3. Write a function that accepts any data type and returns its type\n4. Submit your code as a Python file (.py)\n\nMake sure to include comments explaining your code.',
+      attachedFile: {
+        name: 'Lab_Exercise_2_Instructions.pdf',
+        size: 245760, // 240 KB in bytes
+        type: 'application/pdf',
+        url: '#' // Mock URL - in production this would be the actual file URL
+      }
     },
     {
       id: 3,

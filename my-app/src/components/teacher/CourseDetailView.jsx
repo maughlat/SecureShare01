@@ -61,7 +61,8 @@ export const CourseDetailView = () => {
       status: 'upcoming',
       description: assignmentData.description || '',
       maxPoints: assignmentData.maxPoints,
-      dueTime: assignmentData.dueTime
+      dueTime: assignmentData.dueTime,
+      attachedFile: assignmentData.attachedFile || null
     }
 
     // Add to assignments list
